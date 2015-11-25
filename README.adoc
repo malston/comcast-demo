@@ -1,4 +1,4 @@
-= sparrow Reference Application
+= Sparrow Reference Application
 
 == Running Locally
 
