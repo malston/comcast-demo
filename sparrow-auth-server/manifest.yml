@@ -1,0 +1,7 @@
+---
+applications:
+- name: sparrow-auth-server
+  host: sparrow-auth-server
+  memory: 512M
+  instances: 1
+  path: target/sparrow-auth-server-0.0.1-SNAPSHOT.jar
