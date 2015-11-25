@@ -3,4 +3,4 @@ server:
 spring:
   oauth2:
     resource:
-      userInfoUri: http://localhost:9999/uaa/user
+      userInfoUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user

@@ -19,7 +19,7 @@
     </parent>
 
     <properties>
-        <start-class>io.springbox.configserver.SparrowConfigServerApplication</start-class>
+        <start-class>com.comcast.sparrow.configserver.SparrowConfigServerApplication</start-class>
     </properties>
 
     <dependencies>

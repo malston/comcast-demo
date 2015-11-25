@@ -19,7 +19,7 @@
 	</parent>
 
 	<properties>
-		<start-class>io.springbox.eureka.SparrowEurekaApplication</start-class>
+		<start-class>com.comcast.sparrow.eureka.SparrowEurekaApplication</start-class>
 	</properties>
 
 	<dependencies>

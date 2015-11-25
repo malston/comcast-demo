@@ -5,14 +5,14 @@ security:
   user:
     password: password
 
-# zuul:
-#   routes:
-#     sparrow-catalog: /catalog/**
-#     sparrow-reviews: /reviews/**
-#     sparrow-recommendations: /recommendations/**
-#     user:
-#       path: /user/**
-#       url: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
+zuul:
+   routes:
+     sparrow-catalog: /catalog/**
+     sparrow-reviews: /reviews/**
+     sparrow-recommendations: /recommendations/**
+     user:
+       path: /user/**
+       url: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
 
 spring:
   oauth2:
@@ -27,7 +27,6 @@ spring:
       clientSecret: acmesecret
     resource:
       userInfoUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
-
 
 logging:
   level:
