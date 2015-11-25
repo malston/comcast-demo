@@ -1,4 +1,4 @@
-package io.springbox.apigateway.services.recommendations;
+package com.comcast.sparrow.web.services.recommendations;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

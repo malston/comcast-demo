@@ -1,8 +1,7 @@
-package io.springbox.apigateway.services.recommendations;
+package com.comcast.sparrow.web.services.recommendations;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import rx.Observable;
 
-import java.util.List;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
+
+import rx.Observable;
 
 @Service
 public class RecommendationsIntegrationService {
@@ -24,7 +26,7 @@ public class RecommendationsIntegrationService {
 
     @Autowired
     @LoadBalanced
-    private OAuth2RestOperations restTemplate;
+     private OAuth2RestOperations restTemplate;
 
     @Autowired
     @Qualifier("loadBalancedRestTemplate")

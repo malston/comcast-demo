@@ -12,7 +12,7 @@ security:
 #     sparrow-recommendations: /recommendations/**
 #     user:
 #       path: /user/**
-#       url: http://localhost:9999/uaa/user
+#       url: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
 
 spring:
   oauth2:
@@ -21,12 +21,12 @@ spring:
         secure: false
         path: /,/**/*.html
     client:
-      accessTokenUri: http://localhost:9999/uaa/oauth/token
-      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+      accessTokenUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/token
+      userAuthorizationUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
     resource:
-      userInfoUri: http://localhost:9999/uaa/user
+      userInfoUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
 
 
 logging:
@@ -34,4 +34,4 @@ logging:
     org.springframework.security: INFO
     org.springframework.cloud.netflix: INFO
     com.netflix.zuul: INFO
-    io.springbox.apigateway: DEBUG
+    com.comcast.sparrow.web: DEBUG

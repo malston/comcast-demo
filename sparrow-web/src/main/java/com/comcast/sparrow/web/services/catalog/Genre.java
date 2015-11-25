@@ -1,4 +1,4 @@
-package io.springbox.apigateway.services.catalog;
+package com.comcast.sparrow.web.services.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

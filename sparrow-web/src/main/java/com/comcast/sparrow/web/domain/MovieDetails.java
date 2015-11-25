@@ -1,10 +1,10 @@
-package io.springbox.apigateway.domain;
-
-import io.springbox.apigateway.services.catalog.Genre;
-import io.springbox.apigateway.services.recommendations.Movie;
-import io.springbox.apigateway.services.reviews.Review;
+package com.comcast.sparrow.web.domain;
 
 import java.util.List;
+
+import com.comcast.sparrow.web.services.catalog.Genre;
+import com.comcast.sparrow.web.services.recommendations.Movie;
+import com.comcast.sparrow.web.services.reviews.Review;
 
 public class MovieDetails {
     private String title;
