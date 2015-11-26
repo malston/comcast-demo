@@ -1,7 +1,7 @@
 #!/bin/bash
-URL="http://sparrowrecommendationsdb.sb02.stations.graphenedb.com:24789/db/data/"
-USERNAME="sparrow_recommendations_db"
-PASSWORD="NQEgMqK3WVNZn3mTK4XF"
+URL="http://192.168.9.205:40749/db/data/"
+USERNAME="2fb33f6b-c36c-4af4-b8a6-0bab09852faf"
+PASSWORD="5c417948b3cfdd283f4677fe20ce5576"
 
 X=$IFS
 IFS='/'

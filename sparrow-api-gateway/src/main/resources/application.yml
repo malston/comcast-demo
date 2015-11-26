@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9002
 
 security:
   user:
@@ -9,19 +9,14 @@ zuul:
   routes:
     sparrow-catalog: 
       path: /catalog/**
-      url: http://sparrow.cfapps.pez.pivotal.io/catalog
     sparrow-reviews: 
       path: /reviews/**
-      url: http://sparrow.cfapps.pez.pivotal.io/reviews
     sparrow-recommendations: 
       path: /recommendations/**
-      url: http://sparrow.cfapps.pez.pivotal.io/recommendations
-    user:
-      path: /user/**
-      url: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
     sparrow-web:
       path: /**
-      url: http://sparrow.cfapps.pez.pivotal.io
+      url: ${vcap.services.sparrow-web.credentials.uri:http://localhost:9001}
+      strip-prefix: false
 
 spring:
   oauth2:

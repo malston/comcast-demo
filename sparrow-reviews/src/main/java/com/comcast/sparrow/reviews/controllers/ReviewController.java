@@ -42,9 +42,8 @@ public class ReviewController extends ResourceServerConfigurerAdapter {
      @Override
      public void configure(HttpSecurity http) throws Exception {
          http.authorizeRequests()
-                 .antMatchers(HttpMethod.POST, "/reviews/**").authenticated()
-                 .and()
-             .authorizeRequests()
+//                 .antMatchers(HttpMethod.POST, "/reviews/**").authenticated()
+//                 .and().authorizeRequests()
                  .anyRequest().permitAll();
      }
 }

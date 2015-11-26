@@ -1,10 +1,9 @@
 #!/bin/bash
 ROUTE=${ROUTE:-http://sparrow-reviews.cfapps.pez.pivotal.io}
 
-curl acme:acmesecret@sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/token \
--d grant_type=authorization_code -d client_id=acme \
--d redirect_uri=sparrow.cfapps.pez.pivotal.io/login -d code=UCuSxd
-# {"access_token":"2219199c-966e-4466-8b7e-12bb9038c9bb","token_type":"bearer","refresh_token":"d193caf4-5643-4988-9a4a-1c03c9d657aa","expires_in":43199,"scope":"openid"}
+#curl acme:acmesecret@sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/token \
+#-d grant_type=authorization_code -d client_id=acme \
+#-d redirect_uri=sparrow.cfapps.pez.pivotal.io/login -d code=UCuSxd
 
 http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/authorize?client_id=acme&redirect_uri=http://sparrow.cfapps.pez.pivotal.io/login&response_type=code&state=KehJyb
 

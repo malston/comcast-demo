@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.comcast.sparrow.apigateway.route;
 
 import java.net.MalformedURLException;
@@ -30,27 +27,34 @@ public class AccountRoutingZuulFilter extends ZuulFilter {
 
 	private final ProxyRouteLocator routeLocator;
 
-	private final UrlPathHelper urlPathHelper;// = new UrlPathHelper();
+	private final UrlPathHelper urlPathHelper;
 
 	private final ZuulProperties zuulProperties;
-	
+
 	private final String accountNumberPattern;
-	
+
 	private final String accountServiceId;
+
+	private final String telephoneNumberPattern;
+
+	private final String telephoneServiceId;
 
 	@Autowired
 	public AccountRoutingZuulFilter(ProxyRouteLocator routeLocator, ZuulProperties zuulProperties,
-			@Value(value = "accountNumberPattern") String accountNumberPattern, @Value(value = "accountNumber.serviceId") String accountServiceId) {
+			@Value(value = "accountNumberPattern") String accountNumberPattern, @Value(value = "accountNumber.serviceId") String accountServiceId,
+			@Value(value = "telephoneNumberPattern") String telephoneNumberPattern, @Value(value = "telephoneNumber.serviceId") String telephoneServiceId) {
 		this.routeLocator = routeLocator;
 		this.urlPathHelper = new UrlPathHelper();
 		this.zuulProperties = zuulProperties;
 		this.accountNumberPattern = accountNumberPattern;
 		this.accountServiceId = accountServiceId;
+		this.telephoneNumberPattern = telephoneNumberPattern;
+		this.telephoneServiceId = telephoneServiceId;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.netflix.zuul.IZuulFilter#shouldFilter()
 	 */
 	@Override
@@ -67,7 +71,7 @@ public class AccountRoutingZuulFilter extends ZuulFilter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.netflix.zuul.IZuulFilter#run()
 	 */
 	@Override
@@ -84,14 +88,21 @@ public class AccountRoutingZuulFilter extends ZuulFilter {
 		}
 		final String accountNumber = request.getParameter("accountNumber");
 		final String telephoneNumber = request.getParameter("telephoneNumber");
-		
+
 		if (StringUtils.startsWithIgnoreCase(accountNumber, accountNumberPattern)) {
 			String location = this.accountServiceId;
 			ctx.setRouteHost(null);
 //			ctx.setRouteHost(getUrl(location));
 			ctx.addOriginResponseHeader("X-Zuul-ServiceId", location);
 			ctx.addOriginResponseHeader("X-Zuul-Service", location);
+		} else if (StringUtils.startsWithIgnoreCase(telephoneNumber, telephoneNumberPattern)) {
+			String location = this.telephoneServiceId;
+			ctx.setRouteHost(null);
+//			ctx.setRouteHost(getUrl(location));
+			ctx.addOriginResponseHeader("X-Zuul-ServiceId", location);
+			ctx.addOriginResponseHeader("X-Zuul-Service", location);
 		}
+		
 		if (this.zuulProperties.isAddProxyHeaders()) {
 			ctx.addZuulRequestHeader("X-Forwarded-Host",
 					ctx.getRequest().getServerName() + ":"
@@ -221,7 +232,7 @@ public class AccountRoutingZuulFilter extends ZuulFilter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.netflix.zuul.ZuulFilter#filterType()
 	 */
 	@Override
@@ -231,7 +242,7 @@ public class AccountRoutingZuulFilter extends ZuulFilter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.netflix.zuul.ZuulFilter#filterOrder()
 	 */
 	@Override

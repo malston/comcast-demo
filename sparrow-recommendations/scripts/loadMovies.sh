@@ -1,5 +1,5 @@
 #!/bin/bash
-ROUTE=${ROUTE:-localhost:8082}
+ROUTE=${ROUTE:-sparrow-recommendations.cfapps.pez.pivotal.io}
 curl ${ROUTE}/movies -X POST -d '{"mlId":"1","title":"Toy Story (1995)"}' -H "Content-Type: application/json"
 curl ${ROUTE}/movies -X POST -d '{"mlId":"2","title":"GoldenEye (1995)"}' -H "Content-Type: application/json"
 curl ${ROUTE}/movies -X POST -d '{"mlId":"3","title":"Four Rooms (1995)"}' -H "Content-Type: application/json"

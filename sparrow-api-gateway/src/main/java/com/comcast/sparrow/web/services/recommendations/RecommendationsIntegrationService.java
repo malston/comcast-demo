@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.oauth2.client.OAuth2RestOperations;
+//import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,9 +24,9 @@ public class RecommendationsIntegrationService {
 
     Log log = LogFactory.getLog(RecommendationsIntegrationService.class);
 
-    @Autowired
-    @LoadBalanced
-     private OAuth2RestOperations restTemplate;
+//    @Autowired
+//    @LoadBalanced
+//     private OAuth2RestOperations restTemplate;
 
     @Autowired
     @Qualifier("loadBalancedRestTemplate")
@@ -56,7 +56,7 @@ public class RecommendationsIntegrationService {
             @Override
             public Boolean invoke() {
                 log.debug(String.format("Calling sparrow-recommendations service to load like answer for mlId: %s and movie: %s", mlId, userName));
-                Boolean answer = restTemplate.getForObject("http://sparrow-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
+                Boolean answer = unsecuredTemplate.getForObject("http://sparrow-recommendations/does/{userName}/like/{mlId}", Boolean.class, userName, mlId);
                 log.debug(String.format("Answer from sparrow-recommendations service for mlId: %s and movie: %s = %s", mlId, userName, answer));
                 return answer;
             }

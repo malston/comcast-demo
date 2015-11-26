@@ -22,11 +22,11 @@ public class SparrowRecommendationsApplication extends ResourceServerConfigurerA
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/recommendations/**").authenticated()
-                .antMatchers(HttpMethod.POST,"/people/**").authenticated()
-                .antMatchers(HttpMethod.POST,"/movie/**").authenticated()
-                .antMatchers(HttpMethod.GET,"/does/**/").authenticated()
-                .and().authorizeRequests()
+//                .antMatchers(HttpMethod.POST, "/recommendations/**").authenticated()
+//                .antMatchers(HttpMethod.POST,"/people/**").authenticated()
+//                .antMatchers(HttpMethod.POST,"/movie/**").authenticated()
+//                .antMatchers(HttpMethod.GET,"/does/**/").authenticated()
+//                .and().authorizeRequests()
                 .anyRequest().permitAll();
     }
 }
