@@ -15,17 +15,15 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<properties>
-        <spring-security.version>3.2.1.RELEASE</spring-security.version>
-		<start-class>com.comcast.sparrow.web.SparrowWebApplication</start-class>
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
-	</properties>
-
 	<dependencies>
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -39,8 +37,31 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angularjs</artifactId>
+			<version>1.3.8</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jasmine</artifactId>
+			<version>2.0.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<wro4j.version>1.7.6</wro4j.version>
+		<java.version>1.7</java.version>
+	</properties>
+
 	<build>
 		<resources>
 			<resource>
@@ -52,11 +73,15 @@
 		</resources>
 		<plugins>
 			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
-						<!-- Serves *only* to filter the wro.xml so it can get an absolute
-                            path for the project -->
+						<!-- Serves *only* to filter the wro.xml so it can get an absolute 
+							path for the project -->
 						<id>copy-resources</id>
 						<phase>validate</phase>
 						<goals>
@@ -77,7 +102,7 @@
 			<plugin>
 				<groupId>ro.isdc.wro4j</groupId>
 				<artifactId>wro4j-maven-plugin</artifactId>
-				<version>1.7.6</version>
+				<version>${wro4j.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
@@ -98,21 +123,55 @@
 					<dependency>
 						<groupId>org.webjars</groupId>
 						<artifactId>jquery</artifactId>
-						<version>2.0.3</version>
+						<version>2.1.1</version>
 					</dependency>
 					<dependency>
 						<groupId>org.webjars</groupId>
 						<artifactId>angularjs</artifactId>
-						<version>1.2.13</version>
+						<version>1.3.8</version>
 					</dependency>
 					<dependency>
 						<groupId>org.webjars</groupId>
 						<artifactId>bootstrap</artifactId>
-						<version>3.1.1</version>
+						<version>3.2.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>com.github.searls</groupId>
+				<artifactId>jasmine-maven-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<additionalContexts>
+						<context>
+							<contextRoot>/lib</contextRoot>
+							<directory>${project.build.directory}/generated-resources/static/js</directory>
+						</context>
+					</additionalContexts>
+					<preloadSources>
+						<source>/lib/angular-bootstrap.js</source>
+						<source>/webjars/angularjs/1.3.8/angular-mocks.js</source>
+					</preloadSources>
+					<jsSrcDir>${project.basedir}/src/main/resources/static/js</jsSrcDir>
+					<jsTestSrcDir>${project.basedir}/src/test/resources/static/js</jsTestSrcDir>
+					<webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.webjars</groupId>
+						<artifactId>angularjs</artifactId>
+						<version>1.3.8</version>
 					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

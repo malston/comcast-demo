@@ -1,172 +1,88 @@
+angular.module('sparrow', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
 
-var xAuthTokenHeaderName = 'x-auth-token';
+	$routeProvider.when('/', {
+		templateUrl : 'views/home.html',
+		controller : 'home'
+	}).when('/login', {
+		templateUrl : 'views/login.html',
+		controller : 'navigation'
+	}).when('/genre/:genreMlId', {
+        templateUrl: 'views/genre.html',
+        controller: 'genres'
+    }).when('/reviews', {
+        templateUrl: 'views/reviews.html',
+        controller: 'reviews'
+    }).when('/movie/:mlId', {
+        templateUrl: 'views/movie.html',
+        controller: 'movie'
+    }).when('/movie/:mlId/review', {
+        templateUrl: 'views/createReview.html',
+        controller: 'createReview'
+    })
+	.otherwise('/');
 
-angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
-	.config(
-		[ '$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
+	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-			$routeProvider.when('/create', {
-				templateUrl: 'partials/create.html',
-				controller: CreateController
-			});
+}).controller(
+		'navigation',
 
-			$routeProvider.when('/edit/:id', {
-				templateUrl: 'partials/edit.html',
-				controller: EditController
-			});
+		function($rootScope, $scope, $http, $location, $route) {
 
-			$routeProvider.when('/login', {
-				templateUrl: 'partials/login.html',
-				controller: LoginController
-			});
+			$scope.tab = function(route) {
+				return $route.current && route === $route.current.controller;
+			};
 
-			$routeProvider.otherwise({
-				templateUrl: 'partials/index.html',
-				controller: IndexController
-			});
+			var authenticate = function(credentials, callback) {
 
-			$locationProvider.hashPrefix('!');
+				var headers = credentials ? {
+					authorization : "Basic "
+							+ btoa(credentials.username + ":"
+									+ credentials.password)
+				} : {};
 
-			/* Intercept http errors */
-			var interceptor = function ($rootScope, $q, $location) {
+				$http.get('user', {
+					headers : headers
+				}).success(function(data) {
+					if (data.name) {
+						$rootScope.authenticated = true;
+					} else {
+						$rootScope.authenticated = false;
+					}
+					callback && callback($rootScope.authenticated);
+				}).error(function() {
+					$rootScope.authenticated = false;
+					callback && callback(false);
+				});
 
-		        function success(response) {
-		            return response;
-		        }
-
-		        function error(response) {
-
-		            var status = response.status;
-		            var config = response.config;
-		            var method = config.method;
-		            var url = config.url;
-
-		            if (status == 401) {
-		            	$location.path( "/login" );
-		            } else {
-		            	$rootScope.error = method + " on " + url + " failed with status " + status;
-		            }
-
-		            return $q.reject(response);
-		        }
-
-		        return function (promise) {
-		            return promise.then(success, error);
-		        };
-		    };
-		    $httpProvider.responseInterceptors.push(interceptor);
-
-		} ]
-
-	).run(function($rootScope, $http, $location, $cookieStore, LoginService) {
-
-		/* Reset error when a new view is loaded */
-		$rootScope.$on('$viewContentLoaded', function() {
-			delete $rootScope.error;
-		});
-
-		$rootScope.hasRole = function(role) {
-
-			if ($rootScope.user === undefined) {
-				return false;
 			}
 
-			if ($rootScope.user.roles[role] === undefined) {
-				return false;
+			authenticate();
+
+			$scope.credentials = {};
+			$scope.login = function() {
+				authenticate($scope.credentials, function(authenticated) {
+					if (authenticated) {
+						console.log("Login succeeded")
+						$location.path("/");
+						$scope.error = false;
+						$rootScope.authenticated = true;
+					} else {
+						console.log("Login failed")
+						$location.path("/login");
+						$scope.error = true;
+						$rootScope.authenticated = false;
+					}
+				})
+			};
+
+			$scope.logout = function() {
+				$http.post('logout', {}).success(function() {
+					$rootScope.authenticated = false;
+					$location.path("/");
+				}).error(function(data) {
+					console.log("Logout failed")
+					$rootScope.authenticated = false;
+				});
 			}
 
-			return $rootScope.user.roles[role];
-		};
-
-
-
-		$rootScope.logout = function() {
-			delete $rootScope.user;
-			delete $http.defaults.headers.common[xAuthTokenHeaderName];
-			$cookieStore.remove('user');
-			$location.path("/login");
-		};
-
-		 /* Try getting valid user from cookie or go to login page */
-		var originalPath = $location.path();
-
-		$location.path("/login");
-		var user = $cookieStore.get('user');
-		if (user !== undefined) {
-			$rootScope.user = user;
-			$http.defaults.headers.common[xAuthTokenHeaderName] = user.token;
-
-			$location.path(originalPath);
-		}
-
-	});
-
-
-function IndexController($scope, NewsService) {
-
-	$scope.newsEntries = NewsService.query();
-
-	$scope.deleteEntry = function(newsEntry) {
-		newsEntry.$remove(function() {
-			$scope.newsEntries = NewsService.query();
 		});
-	};
-}
-
-
-function EditController($scope, $routeParams, $location, NewsService) {
-
-	$scope.newsEntry = NewsService.get({id: $routeParams.id});
-
-	$scope.save = function() {
-		$scope.newsEntry.$save(function() {
-			$location.path('/');
-		});
-	};
-}
-
-
-function CreateController($scope, $location, NewsService) {
-
-	$scope.newsEntry = new NewsService();
-
-	$scope.save = function() {
-		$scope.newsEntry.$save(function() {
-			$location.path('/');
-		});
-	};
-}
-
-
-function LoginController($scope, $rootScope, $location, $http, $cookieStore, LoginService) {
-
-	$scope.login = function() {
-		LoginService.authenticate($.param({username: $scope.username, password: $scope.password}), function(user) {
-			$rootScope.user = user;
-			$http.defaults.headers.common[ xAuthTokenHeaderName ] = user.token;
-			$cookieStore.put('user', user);
-			$location.path("/");
-		});
-	};
-}
-
-
-var services = angular.module('exampleApp.services', ['ngResource']);
-
-services.factory('LoginService', function($resource) {
-
-	return $resource(':action', {},
-			{
-				authenticate: {
-					method: 'POST',
-					params: {'action' : 'authenticate'},
-					headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-				}
-			}
-		);
-});
-
-services.factory('NewsService', function($resource) {
-
-	return $resource('news/:id', {id: '@id'});
-});

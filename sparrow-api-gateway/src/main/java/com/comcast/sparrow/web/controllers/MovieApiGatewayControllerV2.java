@@ -19,9 +19,9 @@ import rx.Observable;
 import rx.Observer;
 
 @RestController
-public class ApiGatewayController {
+public class MovieApiGatewayControllerV2 {
 
-	Log log = LogFactory.getLog(ApiGatewayController.class);
+	Log log = LogFactory.getLog(MovieApiGatewayControllerV2.class);
 
 	@Autowired
 	CatalogIntegrationService catalogIntegrationService;
@@ -32,7 +32,7 @@ public class ApiGatewayController {
 	@Autowired
 	RecommendationsIntegrationService recommendationsIntegrationService;
 
-	@RequestMapping("/movie/{mlId}")
+	@RequestMapping("/v2/movie/{mlId}")
 	public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId, @RequestParam String userName) {
 //		@RequestMapping("/movie/{mlId}")
 //		public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId,

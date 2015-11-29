@@ -1,38 +1,17 @@
-secret: secret
-
 server:
   port: 9001
 
-#security:
-#  user:
-#    password: password
-
-zuul:
-   routes:
-     sparrow-catalog: /catalog/**
-     sparrow-reviews: /reviews/**
-     sparrow-recommendations: /recommendations/**
-#     user:
-#       path: /user/**
-#       url: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
-
-#spring:
-#  oauth2:
-#    sso:
-#      home:
-#        secure: false
-#        path: /,/**/*.html
-#    client:
-#      accessTokenUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/token
-#      userAuthorizationUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/oauth/authorize
-#      clientId: acme
-#      clientSecret: acmesecret
-#    resource:
-#      userInfoUri: http://sparrow-auth-server.cfapps.pez.pivotal.io/uaa/user
-
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: HSQL
+    
+security:
+  user:
+    password: password
+    
 logging:
   level:
-    org.springframework.security: INFO
-    org.springframework.cloud.netflix: INFO
-    com.netflix.zuul: INFO
+    org.springframework.security: DEBUG
     com.comcast.sparrow.web: DEBUG

@@ -3,4 +3,4 @@ spring:
     name: sparrow-api-gateway
   cloud:
     config:
-      uri: ${vcap.services.sparrow-config-service.credentials.uri:http://localhost:8888}
+      uri: ${vcap.services.sparrow-config-service.credentials.uri:http://localhost:8889}
