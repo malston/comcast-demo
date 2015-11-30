@@ -15,13 +15,14 @@
 <div class="jumbotron container">
     <h1>Sparrow</h1>
     <p>Welcome to Sparrow. Enjoy the movies!</p>
+    <medium class="text-muted">Courtesy of <a href="https://github.com/spring-cloud-samples/springbox-cloud">SpringBox</a></medium>    
 </div>
 
 <div ng-controller="navigation" class="container">
 	<ul class="nav nav-pills" role="tablist">
-		<li ng-class="{active:tab('home')}"><a href="#/">home</a></li>
-		<li ng-show="!authenticated"><a href="#/login">login</a></li>
-		<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+		<li ng-class="{active:tab('home')}"><a href="#/">Genres</a></li>
+		<li ng-show="!authenticated"><a href="#/login">Login</a></li>
+		<li ng-show="authenticated"><a href="" ng-click="logout()">Logout</a></li>
 	</ul>
 </div>
 
