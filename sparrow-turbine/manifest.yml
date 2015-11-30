@@ -1,0 +1,12 @@
+---
+memory: 1024M
+instances: 1
+applications:
+- name: sparrow-com.comcast.sparrow.turbine
+  host: sparrow-com.comcast.sparrow.turbine
+  path: target/sparrow-com.comcast.sparrow.turbine-0.0.1-SNAPSHOT.jar
+  services:
+  - config-service
+  - service-registry
+  - com.comcast.sparrow.turbine-amqp
+  

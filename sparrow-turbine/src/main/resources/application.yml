@@ -1,0 +1,44 @@
+info:
+  component: sparrow-com.comcast.sparrow.turbine
+
+PREFIX:
+  
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+server:
+  port: ${PORT:8989}
+
+management:
+  port: 8990
+
+#com.comcast.sparrow.turbine:
+#  amqp:
+#    port: ${PORT:8989}
+
+com.comcast.sparrow.turbine:
+  appConfig: simple
+  aggregator:
+    clusterConfig: SIMPLE
+
+logging:
+  level:
+    root: INFO
+    com.netflix.discovery: 'OFF'
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      # defaultZone: ${vcap.services.${PREFIX:}eureka.credentials.uri:http://user:password@localhost:8761}/eureka/
+
+---
+spring:
+  profiles: cloud
+management:
+  port: -1
