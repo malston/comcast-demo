@@ -1,5 +1,8 @@
 package com.comcast.sparrow.apigateway.zuul.filters.route;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -20,11 +23,11 @@ public class MovieRoutingPreFilter extends ZuulFilter {
 
 	private final UrlPathHelper urlPathHelper;
 
-	@Value("${genreMlId}") 
-	private String genreMlId;
+	@Value("${catalog.genreIdRange}")
+	private String genreIdRange;
 	
-	@Value("${genreMlId.serviceId}") 
-	private String genreMlIdServiceId;
+	@Value("${catalog.serviceId}")
+	private String catalogServiceId;
 	
 	@Autowired
 	public MovieRoutingPreFilter(ProxyRouteLocator routeLocator) {
@@ -55,9 +58,11 @@ public class MovieRoutingPreFilter extends ZuulFilter {
 		String[] tokens = StringUtils.tokenizeToStringArray(pathInfo, "/");
 		
 		final String genreMlId = tokens[2];
+		
+		List<String> genreMlIdRange = Arrays.asList(StringUtils.commaDelimitedListToStringArray(genreIdRange));
 
-		if (this.genreMlId.equals(genreMlId)) {
-			String location = this.genreMlIdServiceId;
+		if (genreMlIdRange.contains(genreMlId)) {
+			String location = catalogServiceId;
 			ctx.set("serviceId", location);
 			ctx.setRouteHost(null);
 			ctx.setSendZuulResponse(true);
