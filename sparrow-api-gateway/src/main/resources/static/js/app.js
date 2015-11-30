@@ -6,6 +6,18 @@ angular.module('sparrow', [ 'ngRoute' ]).config(function($routeProvider, $httpPr
 	}).when('/login', {
 		templateUrl : 'views/login.html',
 		controller : 'navigation'
+	}).when('/genre/:genreMlId', {
+        templateUrl: 'views/genre.html',
+        controller: 'genres'
+    }).when('/reviews', {
+        templateUrl: 'views/reviews.html',
+        controller: 'reviews'
+    }).when('/movie/:mlId', {
+        templateUrl: 'views/movie.html',
+        controller: 'movie'
+    }).when('/movie/:mlId/review', {
+        templateUrl: 'views/createReview.html',
+        controller: 'createReview'
     })
 	.otherwise('/');
 

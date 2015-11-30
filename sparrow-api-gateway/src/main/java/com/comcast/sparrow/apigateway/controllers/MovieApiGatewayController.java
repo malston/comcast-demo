@@ -1,12 +1,14 @@
 package com.comcast.sparrow.apigateway.controllers;
 
+import java.security.Principal;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 //import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -33,17 +35,15 @@ public class MovieApiGatewayController {
 	RecommendationsIntegrationService recommendationsIntegrationService;
 
 	@RequestMapping("/movie/{mlId}")
-	public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId, @RequestParam String userName) {
-//		@RequestMapping("/movie/{mlId}")
-//		public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId,
-//				@AuthenticationPrincipal Principal principal) {
+	public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId,
+			@AuthenticationPrincipal Principal principal) {
 
 		log.debug(String.format("Loading anonymous movie details for mlId: %s", mlId));
 
 		Observable<MovieDetails> movieDetails = anonymousMovieDetails(mlId);
 
-//		if (principal != null) {
-//			String userName = principal.getName();
+		if (principal != null) {
+			String userName = principal.getName();
 
 			log.debug(String.format("Loading details for mlId: %s for username: %s", mlId, userName));
 
@@ -52,7 +52,7 @@ public class MovieApiGatewayController {
 						details.setLikes(likes);
 						return details;
 					});
-//		}
+		}
 
 		return toDeferredResult(movieDetails);
 	}

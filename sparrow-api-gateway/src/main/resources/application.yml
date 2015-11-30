@@ -13,10 +13,20 @@ zuul:
       path: /reviews/**
     sparrow-recommendations: 
       path: /recommendations/**
-#    sparrow-api-gateway:
-#      path: /movies/**
-    sparrow-web:
-      path: /**
+    sparrow-web-movies:
+      path: /movies/**
+      url: ${vcap.services.sparrow-web.credentials.uri:http://localhost:9001}
+      strip-prefix: false
+    sparrow-web-genres:
+      path: /genres/**
+      url: ${vcap.services.sparrow-web.credentials.uri:http://localhost:9001}
+      strip-prefix: false
+    sparrow-web-user:
+      path: /user/**
+      url: ${vcap.services.sparrow-web.credentials.uri:http://localhost:9001}
+      strip-prefix: false
+    sparrow-web-resource:
+      path: /user/**
       url: ${vcap.services.sparrow-web.credentials.uri:http://localhost:9001}
       strip-prefix: false
 

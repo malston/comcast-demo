@@ -41,7 +41,7 @@ public class MovieRoutingFilter extends ZuulFilter {
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx
 				.getRequest());
 		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
-		return StringUtils.startsWithIgnoreCase(route.getPath(), "/movie");
+		return StringUtils.startsWithIgnoreCase(route.getPath(), "/movie/");
 	}
 
 	@Override

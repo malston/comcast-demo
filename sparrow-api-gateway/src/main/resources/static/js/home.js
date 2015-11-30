@@ -14,7 +14,7 @@ sparrow.controller('home', function ($rootScope, $scope, $http) {
         }
     });
     
-	$http.get('/resource/').success(function(data) {
-		$scope.greeting = data;
-	});
+//	$http.get('/resource/').success(function(data) {
+//		$scope.greeting = data;
+//	});
 });
