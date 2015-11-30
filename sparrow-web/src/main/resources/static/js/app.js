@@ -3,6 +3,9 @@ angular.module('sparrow', [ 'ngRoute' ]).config(function($routeProvider, $httpPr
 	$routeProvider.when('/', {
 		templateUrl : 'views/home.html',
 		controller : 'home'
+	}).when('/genre/:genreMlId', {
+        templateUrl: 'views/genre.html',
+        controller: 'genres'
 	}).when('/login', {
 		templateUrl : 'views/login.html',
 		controller : 'navigation'
