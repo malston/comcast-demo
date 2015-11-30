@@ -17,7 +17,7 @@ import com.netflix.zuul.context.RequestContext;
 
 @Component
 @RefreshScope
-public class MovieRoutingPreFilter extends ZuulFilter {
+public class MovieGenreRoutingFilter extends ZuulFilter {
 
 	private final ProxyRouteLocator routeLocator;
 
@@ -30,7 +30,7 @@ public class MovieRoutingPreFilter extends ZuulFilter {
 	private String catalogServiceId;
 	
 	@Autowired
-	public MovieRoutingPreFilter(ProxyRouteLocator routeLocator) {
+	public MovieGenreRoutingFilter(ProxyRouteLocator routeLocator) {
 		this.routeLocator = routeLocator;
 		this.urlPathHelper = new UrlPathHelper();
 	}
