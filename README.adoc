@@ -18,6 +18,7 @@
 .. `sparrow-catalog`
 .. `sparrow-reviews`
 .. `sparrow-recommendations`
+.. `sparrow-web`
 .. `sparrow-api-gateway`
 
 . Load data into the reviews DB by running `sparrow-reviews/scripts/loadReviews.sh`.
