@@ -1,7 +1,7 @@
 #!/bin/bash
-URL="http://192.168.9.205:40749/db/data/"
-USERNAME="2fb33f6b-c36c-4af4-b8a6-0bab09852faf"
-PASSWORD="5c417948b3cfdd283f4677fe20ce5576"
+URL="http://127.0.0.1:7474/db/data/"
+USERNAME="neo4j"
+PASSWORD="neo4j"
 
 X=$IFS
 IFS='/'
@@ -12,4 +12,5 @@ SEC_URL=${TOKENS[0]}//${USERNAME}:${PASSWORD}@${TOKENS[2]}/${TOKENS[3]}/${TOKENS
 IFS=$X
 
 JSON=`printf '{"neo4jUri":"%s"}' $SEC_URL`
-cf cups sparrow-recommendations-db -p ${JSON}
+cat $JSON
+#cf cups sparrow-recommendations-db -p ${JSON}

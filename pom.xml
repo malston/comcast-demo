@@ -20,6 +20,7 @@
         <module>sparrow-web</module>
         <module>sparrow-api-gateway</module>
         <module>sparrow-auth-server</module>
+        <module>sparrow-turbine</module>
     </modules>
 
     <parent>
