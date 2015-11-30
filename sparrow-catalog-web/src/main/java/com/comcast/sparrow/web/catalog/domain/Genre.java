@@ -1,4 +1,4 @@
-package com.comcast.sparrow.web;
+package com.comcast.sparrow.web.catalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

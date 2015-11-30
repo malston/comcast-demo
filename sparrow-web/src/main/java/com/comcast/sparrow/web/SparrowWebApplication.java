@@ -2,12 +2,9 @@ package com.comcast.sparrow.web;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,15 +25,14 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
-@SpringBootApplication
+import com.comcast.sparrow.web.catalog.SparrowCatalogApplication;
+
+@SpringBootApplication(exclude = SparrowCatalogApplication.class)
 @RestController
 public class SparrowWebApplication {
 
@@ -66,7 +62,7 @@ public class SparrowWebApplication {
 			http.httpBasic().and().authorizeRequests()
 //					.antMatchers("/index.html", "/home.html", "/", "/login", "/beans").permitAll()
 					.antMatchers("/index.html", "/views/home.html", "/views/login.html", "/", "/beans").permitAll()
-					.antMatchers(HttpMethod.GET, "/recommendations/**","/reviews/**","/people/**","/movie/**","/catalog/**","/movies/**","/genres/**","/likes/**").permitAll()
+					.antMatchers(HttpMethod.GET, "/movie/**","/movies/**","/genres/**").permitAll()
 					.anyRequest().authenticated().and().csrf()
 					.csrfTokenRepository(csrfTokenRepository()).and()
 					.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);

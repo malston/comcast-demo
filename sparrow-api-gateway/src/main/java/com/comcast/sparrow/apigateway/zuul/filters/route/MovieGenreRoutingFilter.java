@@ -40,8 +40,8 @@ public class MovieGenreRoutingFilter extends ZuulFilter {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx
 				.getRequest());
-		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
-		return StringUtils.startsWithIgnoreCase(route.getPath(), "/movies/genre");
+		System.out.println("route.path : '" + requestURI + "'");
+		return StringUtils.startsWithIgnoreCase(requestURI, "/catalog/movies/genre");
 	}
 
 	@Override
@@ -51,11 +51,9 @@ public class MovieGenreRoutingFilter extends ZuulFilter {
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx.getRequest());
 		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
 
-		String pathInfo = route.getPath();
+		String[] tokens = StringUtils.tokenizeToStringArray(requestURI, "/");
 		
-		String[] tokens = StringUtils.tokenizeToStringArray(pathInfo, "/");
-		
-		final String genreMlId = tokens[2];
+		final String genreMlId = tokens[3];
 		
 		List<String> genreMlIdRange = Arrays.asList(StringUtils.commaDelimitedListToStringArray(genreIdRange));
 
@@ -64,6 +62,11 @@ public class MovieGenreRoutingFilter extends ZuulFilter {
 			ctx.set("serviceId", location);
 			ctx.setRouteHost(null);
 			ctx.setSendZuulResponse(true);
+		} else {
+			String location = "SPARROW-CATALOG-WEB";
+			ctx.set("serviceId", location);
+			ctx.setRouteHost(null);
+			ctx.setSendZuulResponse(true);			
 		}
 
 		return null;

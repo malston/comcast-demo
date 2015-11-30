@@ -40,8 +40,9 @@ public class MovieRoutingFilter extends ZuulFilter {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx
 				.getRequest());
-		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
-		return StringUtils.startsWithIgnoreCase(route.getPath(), "/movie/");
+		System.out.println("route.path : '" + requestURI + "'");
+		return StringUtils.startsWithIgnoreCase(requestURI, "/catalog/movies")
+				&& !StringUtils.startsWithIgnoreCase(requestURI, "/catalog/movies/genre");
 	}
 
 	@Override
@@ -51,9 +52,9 @@ public class MovieRoutingFilter extends ZuulFilter {
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx.getRequest());
 		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
 
-		String pathInfo = route.getPath();
+		String prefix = route.getPrefix();
 		
-		String[] tokens = StringUtils.tokenizeToStringArray(pathInfo, "/");
+		String[] tokens = StringUtils.tokenizeToStringArray(prefix, "/");
 		
 		final String movieId = tokens[1];
 		
@@ -76,6 +77,6 @@ public class MovieRoutingFilter extends ZuulFilter {
 
 	@Override
 	public int filterOrder() {
-		return 5;
+		return 6;
 	}
 }

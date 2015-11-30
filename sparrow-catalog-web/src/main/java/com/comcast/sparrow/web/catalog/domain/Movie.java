@@ -1,7 +1,6 @@
-package com.comcast.sparrow.web;
+package com.comcast.sparrow.web.catalog.domain;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 @Entity

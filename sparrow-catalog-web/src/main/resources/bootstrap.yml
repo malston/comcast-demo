@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: sparrow-catalog-web
+  cloud:
+    config:
+      uri: ${vcap.services.sparrow-config-service.credentials.uri:http://localhost:8889}
+server:
+  port: 7776

@@ -1,10 +1,13 @@
-package com.comcast.sparrow.web;
+package com.comcast.sparrow.web.catalog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.comcast.sparrow.web.catalog.domain.Genre;
+import com.comcast.sparrow.web.catalog.repositories.GenreRepository;
 
 @RestController
 public class GenreController {
