@@ -1,4 +1,4 @@
-package com.comcast.sparrow.web.services.catalog;
+package com.comcast.sparrow.apigateway.services.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

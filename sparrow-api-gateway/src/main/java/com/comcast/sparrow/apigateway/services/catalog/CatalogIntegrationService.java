@@ -1,4 +1,4 @@
-package com.comcast.sparrow.web.services.catalog;
+package com.comcast.sparrow.apigateway.services.catalog;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;

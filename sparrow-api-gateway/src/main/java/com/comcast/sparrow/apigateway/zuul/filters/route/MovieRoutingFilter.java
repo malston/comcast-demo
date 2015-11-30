@@ -17,20 +17,20 @@ import com.netflix.zuul.context.RequestContext;
 
 @Component
 @RefreshScope
-public class MovieGenreRoutingFilter extends ZuulFilter {
+public class MovieRoutingFilter extends ZuulFilter {
 
 	private final ProxyRouteLocator routeLocator;
 
 	private final UrlPathHelper urlPathHelper;
 
-	@Value("${catalog.genreIdRange}")
-	private String genreIdRange;
+	@Value("${catalog.movieIdRange}")
+	private String movieIdRange;
 	
 	@Value("${catalog.serviceId}")
 	private String catalogServiceId;
 	
 	@Autowired
-	public MovieGenreRoutingFilter(ProxyRouteLocator routeLocator) {
+	public MovieRoutingFilter(ProxyRouteLocator routeLocator) {
 		this.routeLocator = routeLocator;
 		this.urlPathHelper = new UrlPathHelper();
 	}
@@ -41,7 +41,7 @@ public class MovieGenreRoutingFilter extends ZuulFilter {
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx
 				.getRequest());
 		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
-		return StringUtils.startsWithIgnoreCase(route.getPath(), "/movies/genre");
+		return StringUtils.startsWithIgnoreCase(route.getPath(), "/movie");
 	}
 
 	@Override
@@ -55,11 +55,11 @@ public class MovieGenreRoutingFilter extends ZuulFilter {
 		
 		String[] tokens = StringUtils.tokenizeToStringArray(pathInfo, "/");
 		
-		final String genreMlId = tokens[2];
+		final String movieId = tokens[1];
 		
-		List<String> genreMlIdRange = Arrays.asList(StringUtils.commaDelimitedListToStringArray(genreIdRange));
+		List<String> mlIdRange = Arrays.asList(StringUtils.commaDelimitedListToStringArray(movieIdRange));
 
-		if (genreMlIdRange.contains(genreMlId)) {
+		if (mlIdRange.contains(movieId)) {
 			String location = catalogServiceId;
 			ctx.set("serviceId", location);
 			ctx.setRouteHost(null);

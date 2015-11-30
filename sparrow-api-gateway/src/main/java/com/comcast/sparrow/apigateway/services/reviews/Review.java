@@ -1,4 +1,4 @@
-package com.comcast.sparrow.web.services.reviews;
+package com.comcast.sparrow.apigateway.services.reviews;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

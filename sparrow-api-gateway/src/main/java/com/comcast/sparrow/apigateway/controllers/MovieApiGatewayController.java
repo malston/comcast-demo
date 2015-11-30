@@ -1,4 +1,4 @@
-package com.comcast.sparrow.web.controllers;
+package com.comcast.sparrow.apigateway.controllers;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import com.comcast.sparrow.web.domain.MovieDetails;
-import com.comcast.sparrow.web.services.catalog.CatalogIntegrationService;
-import com.comcast.sparrow.web.services.recommendations.RecommendationsIntegrationService;
-import com.comcast.sparrow.web.services.reviews.ReviewsIntegrationService;
+import com.comcast.sparrow.apigateway.domain.MovieDetails;
+import com.comcast.sparrow.apigateway.services.catalog.CatalogIntegrationService;
+import com.comcast.sparrow.apigateway.services.recommendations.RecommendationsIntegrationService;
+import com.comcast.sparrow.apigateway.services.reviews.ReviewsIntegrationService;
 
 import rx.Observable;
 import rx.Observer;

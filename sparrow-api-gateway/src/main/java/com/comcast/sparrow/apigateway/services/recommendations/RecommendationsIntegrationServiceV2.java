@@ -1,4 +1,4 @@
-package com.comcast.sparrow.web.services.recommendations;
+package com.comcast.sparrow.apigateway.services.recommendations;
 
 import java.util.List;
 
