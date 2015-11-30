@@ -50,8 +50,6 @@ public class MovieRoutingPreFilter extends ZuulFilter {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		final String requestURI = this.urlPathHelper.getPathWithinApplication(ctx.getRequest());
 		ProxyRouteSpec route = this.routeLocator.getMatchingRoute(requestURI);
-		System.out.println("URI ----" + requestURI);
-		System.out.println("Matching Route ----" + route.getPath());
 
 		String pathInfo = route.getPath();
 		
